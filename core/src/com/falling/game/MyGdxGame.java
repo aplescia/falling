@@ -9,13 +9,24 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.lang.Math;
+import java.lang.Thread;
 
 public class MyGdxGame implements ApplicationListener {
 		private Texture texture;
 	    private SpriteBatch batch;
 	    private BitmapFont font;
-	    private Sprite sprite;
+	    
+	    //sprites
+	    private Sprite start_sprite;
+	    private Sprite blue_sprite;
+	    private Sprite purple_sprite;
+	    
+	    //different colored circles
 	    private Texture texturetwo;
+	    private Texture texturethree;
+	    private Texture texturefour;
+	    private Texture texturefive;
+	    
 	    
 	    @Override
 	    public void create() {        
@@ -24,10 +35,14 @@ public class MyGdxGame implements ApplicationListener {
 	        /*two textures just to test, one for red circle and one for purple circle*/
 	        texture = new Texture(Gdx.files.internal("redcircle.png"));
 	        texturetwo = new Texture(Gdx.files.internal("purpcircle.png"));
+	        texturethree = new Texture(Gdx.files.internal("greencircle.png"));
+	        texturefour = new Texture(Gdx.files.internal("bluecircle.png"));
 	        
-	      //probably an easier way to randomly generate a sprite...not that far yet. might need to use an atlas/spritemap
-	        double theRandom = Math.random();
-	        sprite = new Sprite(texture);
+	        //probably an easier way to randomly generate a sprite...not that far yet. might need to use an atlas/spritemap
+	        start_sprite = new Sprite(texture);
+	        blue_sprite = new Sprite(texturefour);
+	        
+	        
 	    }
 
 	    @Override
@@ -42,11 +57,24 @@ public class MyGdxGame implements ApplicationListener {
 	        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	        
 	        batch.begin();
-	        sprite.draw(batch);
 	        
-	        //we need to be able to center an initial sprite. My main goal right now is to get a single circle in the middle of the device. iOS uses
-	        //percentages, but I'm not sure how to do this in libGDX
-	        sprite.setCenter(120,120);
+	        start_sprite.draw(batch);
+	        
+	        //centers initial sprite in middle of screen
+	        start_sprite.setPosition(Gdx.graphics.getWidth()/2 - texture.getWidth()/2, Gdx.graphics.getHeight()/2 - texture.getHeight()/2);
+	     
+	        
+	        try{
+	        	Thread.sleep(3000);
+	        }catch(Exception e){
+	        	System.out.println("CAN'T SLEEP");
+	        }
+	        
+	        //generate a second sprite after 3 seconds...not familiar with drawing multiple objects so it is buggy
+	        blue_sprite.draw(batch);
+	        blue_sprite.setPosition(120, 120);
+	        
+	 
 	        batch.end();
 	    }
 
