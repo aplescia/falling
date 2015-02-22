@@ -43,6 +43,10 @@ public class MyGdxGame implements ApplicationListener {
 	        
 	        batch.begin();
 	        sprite.draw(batch);
+	        
+	        //we need to be able to center an initial sprite. My main goal right now is to get a single circle in the middle of the device. iOS uses
+	        //percentages, but I'm not sure how to do this in libGDX
+	        sprite.setCenter(120,120);
 	        batch.end();
 	    }
 
